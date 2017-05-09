@@ -1,4 +1,4 @@
-from ubuntu:trusty
+from ubuntu:xenial
 
 RUN apt-get update && apt-get -y install rsyslog && rm /etc/rsyslog.d/50-default.conf
 
