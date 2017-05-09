@@ -1,0 +1,20 @@
+# Remote Logging (we use TCP for reliable delivery)
+#
+# An on-disk queue is created for this action. If the remote host is
+# down, messages are spooled to disk and sent when it is up again.
+$WorkDirectory /var/spool/rsyslog           # where to place spool files
+$ActionQueueDiscardSeverity 4               # syslog severity threshold for discarding (4=warn)
+$ActionQueueDiscardMark 750000              # msg threshold to start discarding
+$ActionQueueMaxFileSize 50m                 # queue max file size
+$ActionQueueFileName remote_fwd             # unique name prefix for spool files
+$ActionQueueMaxDiskSpace 1g                 # space limit (use as much as possible)
+$ActionQueueSaveOnShutdown on               # save messages to disk on shutdown
+$ActionQueueType LinkedList                 # run asynchronously
+$ActionResumeRetryCount -1                  # infinite retries if host is down
+$ActionQueueTimeoutEnqueue 100              # enqueue timeout in ms
+action(type="omfwd"
+       Target="127.0.0.1"
+       Port="514"
+       Protocol="tcp"
+       ZipLevel="1"
+       RebindInterval="100")
