@@ -7,4 +7,4 @@ COPY etc/rsyslog.conf /etc/rsyslog.conf
 
 EXPOSE 514 514/udp
 
-ENTRYPOINT [ "rsyslogd", "-n" ]
+ENTRYPOINT [ "rsyslogd", "-n", "-i", "/data/rsyslog/rsyslogd.pid" ]
