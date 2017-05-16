@@ -1,0 +1,13 @@
+/data/rsyslog/*/*.log
+{
+	rotate 3
+	daily
+	missingok
+	notifempty
+	delaycompress
+	compress
+	sharedscripts
+	postrotate
+		kill -HUP `cat /data/rsyslog/rsyslogd.pid`
+	endscript
+}
