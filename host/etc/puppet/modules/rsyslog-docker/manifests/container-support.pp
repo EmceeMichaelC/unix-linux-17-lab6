@@ -1,6 +1,14 @@
 #Resources to support docker container running rsyslog
 class rsyslog-docker::container-support {
   file {
+      '/data/':
+	ensure   => directory,
+	mode     => 0777,
+	owner    => root,
+	group    => root,
+  }
+
+  file {
     '/data/rsyslog/':
 	  ensure   => directory,
       mode     => 0777,
